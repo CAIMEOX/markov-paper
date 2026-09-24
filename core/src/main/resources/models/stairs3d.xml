@@ -1,0 +1,6 @@
+<sequence values="BN" origin="True" symmetry="(xy)">
+  <wfc values="BYDAWP RFUENC" tileset="Paths">
+    <rule in="B" out="Empty|Line|Turn|X|Down|Up"/>
+    <rule in="N" out="Down|Up"/>
+  </wfc>
+</sequence>

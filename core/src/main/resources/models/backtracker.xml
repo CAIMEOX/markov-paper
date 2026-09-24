@@ -1,0 +1,4 @@
+<markov values="BRWU" origin="True">
+  <one in="RB" out="WR"/>
+  <one in="RW" out="UR"/>
+</markov>

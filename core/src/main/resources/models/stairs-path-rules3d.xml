@@ -1,0 +1,18 @@
+<sequence values="BDROAGE" origin="True" symmetry="(xy)">
+  <all in="D**B" out="***D" symmetry="(xyz)"/>
+  <one in="DBBDBBD" out="B**GEBB" steps="1" comment="finish"/>
+  <one in="DBBDBBD" out="RO*****" steps="1" comment="start"/>
+  <prl in="D" out="B"/>
+  <one>
+    <rule in="ROBBB" out="DAARO" comment="forward"/>
+    <rule in="ROBB/*BBB/***B/***B" out="DAAR/*BBO/****/****" comment="turn"/>
+    <rule in="ROBBB BBBBB BBBBB BBBBB" out="DAADB BBBAB BBBAB DBBRO" comment="stairs down"/>
+    <rule in="BBBBB BBBBB BBBBB ROBBB" out="DBBRO BBBAB BBBAB DAADB" comment="stairs up"/>
+    <observe value="G" from="B" to="R"/>
+    <observe value="E" from="B" to="O"/>
+    <observe value="R" to="D"/>
+    <observe value="O" to="A"/>
+    <observe value="B" to="BDA"/>
+  </one>
+  <one in="ROBB" out="DAAD"/>
+</sequence>

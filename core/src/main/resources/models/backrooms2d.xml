@@ -1,0 +1,55 @@
+<sequence values="BFWHVLDRQ" symmetry="()">
+  <prl in="B" out="F"/>
+
+  <prl in="F" out="H" p="0.016" steps="1"/>
+  <prl in="F" out="V" p="0.016" steps="1"/>
+
+  <markov>
+    <one>
+      <rule in="HFFFF" out="WWWFH" symmetry="(x)"/>
+      <rule in="HFFFFF" out="WWWWFH" symmetry="(x)"/>
+      <rule in="HFFFFFF" out="WWWWWFH" symmetry="(x)"/>
+
+      <rule in="V/F/F/F/F" out="W/W/W/F/V" symmetry="(y)"/>
+      <rule in="V/F/F/F/F/F" out="W/W/W/W/F/V" symmetry="(y)"/>
+      <rule in="V/F/F/F/F/F/F" out="W/W/W/W/W/F/V" symmetry="(y)"/>
+
+      <rule in="H/F/F/F" out="W/W/W/V" symmetry="(y)"/>
+      <rule in="H/F/F/F/F" out="W/W/W/W/V" symmetry="(y)"/>
+      <rule in="H/F/F/F/F/F" out="W/W/W/W/W/V" symmetry="(y)"/>
+      <rule in="VFFF" out="WWWH" symmetry="(x)"/>
+      <rule in="VFFFF" out="WWWWH" symmetry="(x)"/>
+      <rule in="VFFFFF" out="WWWWWH" symmetry="(x)"/>
+    </one>
+  </markov>
+
+  <prl>
+    <rule in="H" out="W"/>
+    <rule in="V" out="W"/>
+  </prl>
+  <prl in="WFW" out="WWW" p="0.35" symmetry="(xy)" steps="1"/>
+  <prl in="FWWF" out="WWW*" p="0.50" symmetry="(xy)" steps="1"/>
+  <one in="WW/WW" out="**/*F" symmetry="(xy)"/>
+  <one
+    in="*****/*****/*****/*****/*****"
+    out="FFFFF/FFFFF/FFFFF/FFFFF/FFFFF"
+    steps="1"
+  />
+
+  <one in="F" out="R" steps="1"/>
+  <markov>
+    <all symmetry="(xy)">
+      <rule in="RF" out="RR"/>
+      <rule in="RD" out="RQ"/>
+      <rule in="QF" out="QR"/>
+      <rule in="QD" out="QQ"/>
+    </all>
+    <path from="RQ" to="F" on="W" color="D" inertia="True"/>
+  </markov>
+  <prl>
+    <rule in="R" out="F"/>
+    <rule in="Q" out="D"/>
+  </prl>
+
+  <one in="FFF/FFF/FFF" out="***/*L*/***" steps="8"/>
+</sequence>

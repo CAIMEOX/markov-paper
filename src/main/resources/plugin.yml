@@ -1,0 +1,28 @@
+name: markov-paper
+version: '${version}'
+main: com.caimeo.markovpaper.MarkovPaperPlugin
+api-version: '1.21'
+description: Animated MJ XML and WFC generation for Paper.
+commands:
+  mj:
+    description: Preview or materialize animated MarkovJunior rewrite models.
+    permission: markov-paper.use
+permissions:
+  markov-paper.use:
+    description: Use shared model, position, bounds, and stop commands.
+    default: op
+  markov-paper.preview:
+    description: Generate client-only previews and inspect structure assets.
+    default: op
+    children:
+      markov-paper.use: true
+  markov-paper.materialize:
+    description: Write generated results into the real world.
+    default: op
+    children:
+      markov-paper.use: true
+  markov-paper.admin:
+    description: Build, rebuild, and manage the asset debug world.
+    default: op
+    children:
+      markov-paper.use: true

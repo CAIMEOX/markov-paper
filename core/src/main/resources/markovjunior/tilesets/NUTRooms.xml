@@ -1,0 +1,15 @@
+<!-- Structural module demo, not a guarantee of global doorway connectivity.
+     B in a payload is owned air; only '.' in the mask leaves space unowned. -->
+<tileset nonUniform="True">
+  <tiles>
+    <tile name="Wall" voxels="W" weight="0.04"/>
+    <tile name="Hall" voxels="WWWWW/FFFFF/WWWWW" rotations="z"/>
+    <tile name="Corner" voxels="WFWWW/WFLFW/WWWFV/BBBWF/BBBWF"
+          mask="XXXXX/XXXXX/XXXXX/...XX/...XX" rotations="z"/>
+    <tile name="RoomSmall" voxels="WWFWW/WFFFW/FFLFF/WFFFW/WWFWW"/>
+    <tile name="RoomLarge" voxels="WWWFWWW/WFFFFFW/WFFFFFW/FFFLFFF/WFFFFFW/WFFFFFW/WWWFWWW"/>
+  </tiles>
+  <neighbors>
+    <neighbor left="*" right="*" directions="x y"/>
+  </neighbors>
+</tileset>

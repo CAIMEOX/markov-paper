@@ -1,0 +1,2 @@
+<!-- A standalone tiled WFC example; uses the same compiler as any user XML. -->
+<wfc values="BVL" tileset="Partition" overlap="-3" tries="1000" shannon="True"/>

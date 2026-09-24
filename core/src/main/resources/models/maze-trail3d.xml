@@ -1,0 +1,4 @@
+<one values="BRW" origin="True">
+  <rule in="RBB" out="WWR"/>
+  <rule in="R*W" out="W*R"/>
+</one>

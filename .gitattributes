@@ -1,0 +1,4 @@
+# Imported models are preserved byte-for-byte and verified by the vendor manifest.
+core/src/main/resources/models/carma-tower.xml -whitespace
+core/src/main/resources/models/modern-house.xml -whitespace
+core/src/main/resources/models/sea-villa.xml -whitespace

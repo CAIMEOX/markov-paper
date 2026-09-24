@@ -1,0 +1,12 @@
+<tileset nonUniform="True">
+  <tiles>
+    <tile name="Air" voxels="B" weight="0.15"/>
+    <tile name="Beam" voxels="RRR" rotations="z"/>
+    <tile name="Corner" voxels="YY/YB" mask="XX/X." rotations="z"/>
+    <tile name="Pillar" voxels="G G G"/>
+    <tile name="Cube" voxels="CC/CC CC/CC" weight="0.5"/>
+  </tiles>
+  <neighbors>
+    <neighbor left="*" right="*" directions="x y z"/>
+  </neighbors>
+</tileset>

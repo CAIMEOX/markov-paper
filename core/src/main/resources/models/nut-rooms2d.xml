@@ -1,0 +1,11 @@
+<!-- Atomized 2D room modules followed by ordinary MJ voxel projection.
+     Change the map Z scale and its four output columns together to change height. -->
+<wfc values="BWFLV" tileset="NUTRooms" shannon="True" tries="1000">
+  <map values="BSL" scale="1 1 6" symmetry="()">
+    <rule in="B" out="B B B B B B"/>
+    <rule in="W" out="S S S S S S"/>
+    <rule in="F" out="S B B B B S"/>
+    <rule in="L" out="S B B B B L"/>
+    <rule in="V" out="S B B S S S"/>
+  </map>
+</wfc>
