@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.assemblage.Extent3i
 import com.caimeo.markovpaper.assemblage.Vec3i
@@ -7,7 +7,7 @@ import java.util.concurrent.FutureTask
 import java.util.concurrent.CancellationException
 import java.util.concurrent.ExecutionException
 
-internal interface PreviewTarget {
+interface PreviewTarget {
     val viewerAvailable: Boolean
     fun validate(size: Extent3i)
     fun show(cells: List<PreviewCell>)
@@ -18,7 +18,7 @@ internal interface PreviewTarget {
     fun close() = Unit
 }
 
-internal data class PreviewPacing(
+data class PreviewPacing(
     val advances: Int = 1,
     val displayBlocks: Int = 512,
     val commitBlocks: Int = 512,
@@ -27,8 +27,8 @@ internal data class PreviewPacing(
     init { require(advances > 0 && displayBlocks > 0 && commitBlocks > 0 && restoreBlocks > 0) }
 }
 
-/** One client-overlay lifecycle, independent of the generator and the Paper transport. */
-internal class PreviewLifecycle(
+/** One client-overlay lifecycle, independent of the generator and server transport. */
+class PreviewLifecycle(
     source: PreviewSource,
     private val target: PreviewTarget,
     private val executor: Executor,

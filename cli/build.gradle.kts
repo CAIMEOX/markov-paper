@@ -25,7 +25,7 @@ distributions {
     main {
         contents {
             from(rootProject.file("docs")) {
-                include("cli.md", "model-format.md", "core.md", "paper.md", "model-profiles.md", "concepts.md")
+                include("cli.md", "model-format.md", "core.md", "paper.md", "fabric.md", "model-profiles.md", "concepts.md")
                 into("docs")
             }
             from(rootProject.file("THIRD_PARTY_NOTICES.md"))
@@ -38,7 +38,7 @@ tasks.jar {
     archiveClassifier.set("thin")
     manifest { attributes["Main-Class"] = application.mainClass.get() }
 }
-val standaloneJar by tasks.registering(Jar::class) {
+val standaloneJar = tasks.register<Jar>("standaloneJar") {
     dependsOn(":core:jar", tasks.classes)
     archiveBaseName.set("markov-cli")
     manifest { attributes["Main-Class"] = application.mainClass.get() }

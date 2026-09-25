@@ -9,7 +9,7 @@
 **Prepared model**: A compiled definition containing resolved resources, input
 and output dimensions, and alphabets. Each execution has its own state and seed.
 
-**Model profile**: Paper presentation settings paired with a model: dimensions,
+**Model profile**: Minecraft presentation settings paired with a model: dimensions,
 axis mapping, block palette, height columns and command defaults.
 
 **Tile**: A fixed-size voxel pattern with declared adjacency rules, selected by WFC.

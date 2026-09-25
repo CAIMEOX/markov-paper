@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.xml.ModelResources
 import java.nio.file.Files
@@ -6,7 +6,7 @@ import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.nio.file.Path
 
 /** One path from installed XML + profile to validated bounds, palette and runtime factory. */
-internal class PaperModelCatalog(modelDirectory: Path) {
+class ModelCatalog(modelDirectory: Path) {
     private val directory = modelDirectory.toAbsolutePath().normalize()
     private val resources = ModelResources(directory.parent)
     init { Files.createDirectories(directory) }
@@ -23,7 +23,7 @@ internal class PaperModelCatalog(modelDirectory: Path) {
         ModelProfile.parse(if (Files.exists(file, NOFOLLOW_LINKS)) read(file) else "")
     }
 
-    fun prepare(name: String, size: Int, height: Int? = null, maxCells: Long = MAX_GENERATION_VOXELS): PreparedPaperModel {
+    fun prepare(name: String, size: Int, height: Int? = null, maxCells: Long = MAX_GENERATION_VOXELS): PreparedMinecraftModel {
         val profile = profile(name)
         return contextual(name) { profile.prepare(read(path(name, "xml")), size, height, resources, maxCells) }
     }
@@ -60,7 +60,7 @@ internal class PaperModelCatalog(modelDirectory: Path) {
 
     companion object {
         private val NAME = Regex("[a-z0-9_-]+")
-        val bundledNames: List<String> = requireNotNull(PaperModelCatalog::class.java.getResource("/model-profiles/index.txt"))
+        val bundledNames: List<String> = requireNotNull(ModelCatalog::class.java.getResource("/model-profiles/index.txt"))
             .readText().lineSequence().map(String::trim).filter { it.isNotEmpty() }.toList().also { names ->
                 require(names.distinct().size == names.size && names.all { it.matches(NAME) })
             }

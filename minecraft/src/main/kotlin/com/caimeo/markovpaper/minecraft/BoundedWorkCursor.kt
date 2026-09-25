@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 internal class BoundedWorkCursor<T>(
     private val source: Iterator<T>,

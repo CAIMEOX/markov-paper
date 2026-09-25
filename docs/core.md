@@ -4,6 +4,11 @@
 
 `core` is a Kotlin/JVM library for Java 21+.
 
+The CLI depends directly on `core`. Paper and Fabric depend on the platform-free
+`minecraft` module, which supplies model profiles, scene data, coordinate mapping
+and the preview/commit lifecycle and depends on `core`. Each backend implements
+its own game-facing transport and command registration.
+
 ## Compile a model
 
 `MarkovXmlCompiler.prepare(xml, sizeX, sizeY, sizeZ, resources, maxCells)`
@@ -69,5 +74,6 @@ Each execution operates on a finite grid. Solver advances have variable
 computational cost; a step-count limit does not impose a time deadline.
 Memory use includes grids, rule data, WFC candidates and adjacency tables.
 
-The [Paper adapter](paper.md#execution-stopping-and-materialization) schedules
-generation in background workers and batches its client and world updates.
+The [Paper](paper.md#execution-stopping-and-materialization) and
+[Fabric](fabric.md#preview-and-commit-behavior) adapters schedule generation in
+background workers and batch client and world updates through the shared runtime.

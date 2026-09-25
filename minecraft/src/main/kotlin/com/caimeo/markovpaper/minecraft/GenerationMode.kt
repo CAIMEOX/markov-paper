@@ -1,3 +1,3 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 enum class GenerationMode { PREVIEW, MATERIALIZE }

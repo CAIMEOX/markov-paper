@@ -1,6 +1,6 @@
 # Model format and resources
 
-[Overview](../README.md) · [CLI](cli.md) · [Core embedding](core.md) · [Paper](paper.md)
+[Overview](../README.md) · [CLI](cli.md) · [Core embedding](core.md) · [Paper](paper.md) · [Fabric](fabric.md)
 
 ## Tiled WFC and external resources
 
@@ -8,10 +8,10 @@
 including the bundled Paths, SeaVilla, ModernHouse, and CarmaTower models.
 Custom models are loaded directly from XML.
 
-Paper-specific sizes, axes, palettes and height projection live in optional
+Minecraft sizes, axes, palettes and height projection live in optional
 [model profiles](model-profiles.md).
 
-For example, save `models/my-wfc.xml` in the plugin data folder:
+For example, save `models/my-wfc.xml` in the backend's data folder:
 
 ```xml
 <sequence values="BN" origin="True" symmetry="(xy)">
@@ -29,7 +29,8 @@ For example, save `models/my-wfc.xml` in the plugin data folder:
 ```
 
 Each command resolves the files again. Model XML lives in `models/`. Resources
-are resolved **first from the plugin data folder**, then from the JAR:
+are resolved **first from the backend's data folder**, then from the JAR. Paper
+uses `plugins/markov-paper/`; Fabric uses `config/markov/`:
 
 ```text
 plugins/markov-paper/
@@ -185,7 +186,7 @@ constraints. `periodic=True` or nonzero `overlap`/`overlapz` fail at preparation
 NUT adjacency uses a dense table capped at 64 million entries before allocation; the
 32-million cell/state candidate budget also applies.
 
-Bundled demonstrations (installed into Paper's model folder on plugin startup):
+Bundled demonstrations (installed into each backend's model folder at startup):
 
 ```text
 /mj preview nut-bricks 8

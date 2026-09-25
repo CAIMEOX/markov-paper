@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.assemblage.BlockStateSpec
 import com.caimeo.markovpaper.xml.GridSize
@@ -9,8 +9,8 @@ import com.caimeo.markovpaper.xml.PreparedMarkovModel
 import java.io.StringReader
 import java.util.Properties
 
-/** Paper presentation metadata, independent of a model's filename and of Bukkit. */
-internal class ModelProfile private constructor(private val properties: Map<String, String>) {
+/** Minecraft presentation metadata, independent of a model's filename and server platform. */
+class ModelProfile private constructor(private val properties: Map<String, String>) {
     val defaultSize = positive("default-size", 15)
     val rewrites = positive("rewrites", 4)
     val hybrid = properties["hybrid"]?.let { requireNotNull(it.toBooleanStrictOrNull()) { "hybrid must be true or false" } } ?: false
@@ -53,7 +53,7 @@ internal class ModelProfile private constructor(private val properties: Map<Stri
         }
     }
 
-    fun prepare(xml: String, size: Int, height: Int?, resources: ModelResources, maxCells: Long): PreparedPaperModel {
+    fun prepare(xml: String, size: Int, height: Int?, resources: ModelResources, maxCells: Long): PreparedMinecraftModel {
         require(size >= minimumSize) { "Model size must be at least $minimumSize" }
         require(input.any { it == "size" } || size == input.first().toInt()) {
             "This model uses fixed input ${input.joinToString("×")}; request size ${input.first()}"
@@ -72,7 +72,7 @@ internal class ModelProfile private constructor(private val properties: Map<Stri
             index.toByte() to (blocks[symbol] ?: blocks[symbol.uppercaseChar()] ?: if (index == 0) AIR else
                 DEFAULT_BLOCKS[symbol.uppercaseChar().toString()]?.let(::BlockStateSpec) ?: FALLBACK[(index - 1) % FALLBACK.size])
         }.toMap()
-        return PreparedPaperModel(projected, palette, when (up) {
+        return PreparedMinecraftModel(projected, palette, when (up) {
             "y" -> false
             "z" -> true
             else -> columns.isNotEmpty() || projected.size.z > 1
@@ -92,7 +92,7 @@ internal class ModelProfile private constructor(private val properties: Map<Stri
     }
 }
 
-internal data class PreparedPaperModel(
+data class PreparedMinecraftModel(
     val execution: PreparedMarkovModel,
     val palette: Map<Byte, BlockStateSpec>,
     val modelZIsUp: Boolean,

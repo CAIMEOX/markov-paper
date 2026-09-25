@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.assemblage.BlockStateSpec
 import com.caimeo.markovpaper.assemblage.AssemblageTrace
@@ -10,19 +10,19 @@ import com.caimeo.markovpaper.engine.RewriteNode
 import com.caimeo.markovpaper.scene.HybridSceneProgram
 import com.caimeo.markovpaper.scene.SceneProgram
 
-internal data class PreviewCell(val position: Vec3i, val state: BlockStateSpec?)
-internal data class PreviewFrame(val cells: Sequence<PreviewCell>, val cellCount: Int, val phase: String? = null)
-internal data class PreviewResult(val size: Extent3i, val cells: Sequence<PreviewCell>, val details: List<String> = emptyList())
+data class PreviewCell(val position: Vec3i, val state: BlockStateSpec?)
+data class PreviewFrame(val cells: Sequence<PreviewCell>, val cellCount: Int, val phase: String? = null)
+data class PreviewResult(val size: Extent3i, val cells: Sequence<PreviewCell>, val details: List<String> = emptyList())
 
 /** Local Minecraft-Y-up data only. Implementations never access Bukkit while advancing. */
-internal interface PreviewSource {
+interface PreviewSource {
     val initialSize: Extent3i
     fun initialCells(): Sequence<PreviewCell>
     fun advance(): PreviewFrame?
     fun finish(): PreviewResult
 }
 
-internal class VoxelPreviewSource(
+class VoxelPreviewSource(
     private val grid: GridView,
     private val node: RewriteNode,
     private val palette: Map<Byte, BlockStateSpec>,
@@ -56,14 +56,14 @@ private fun gridCells(grid: GridView, palette: Map<Byte, BlockStateSpec>, modelZ
     }
 }
 
-internal class StaticPreviewSource(private val scene: SceneSnapshot) : PreviewSource {
+class StaticPreviewSource(private val scene: SceneSnapshot) : PreviewSource {
     override val initialSize = scene.size
     override fun initialCells() = scene.previewCells()
     override fun advance(): PreviewFrame? = null
     override fun finish() = PreviewResult(scene.size, scene.previewCells())
 }
 
-internal class TracePreviewSource(trace: AssemblageTrace, changesPerAdvance: Int) : PreviewSource {
+class TracePreviewSource(trace: AssemblageTrace, changesPerAdvance: Int) : PreviewSource {
     private val plan = sceneTraceAnimationPlan(trace)
     private val playback = SceneTracePlayback(plan, changesPerAdvance)
     override val initialSize = plan.finalScene.size
@@ -79,7 +79,7 @@ internal class TracePreviewSource(trace: AssemblageTrace, changesPerAdvance: Int
     override fun finish() = PreviewResult(plan.finalScene.size, plan.finalScene.previewCells())
 }
 
-internal class ProgramPreviewSource(private val program: SceneProgram) : PreviewSource {
+class ProgramPreviewSource(private val program: SceneProgram) : PreviewSource {
     override val initialSize = program.initial.size
     override fun initialCells() = program.initial.previewCells()
     override fun advance(): PreviewFrame? {
@@ -96,7 +96,7 @@ private fun SceneSnapshot.previewCells(): Sequence<PreviewCell> = cells.asSequen
     PreviewCell(position, cell.state)
 }
 
-internal fun AssemblageTrace?.details(): List<String> = this?.frames?.drop(1)?.mapIndexedNotNull { index, frame ->
+fun AssemblageTrace?.details(): List<String> = this?.frames?.drop(1)?.mapIndexedNotNull { index, frame ->
     frame.placement?.let { report ->
         "- graft ${index + 1}: ${frame.introducedSource.label} " +
             "rotation=${report.secondRotation} " +

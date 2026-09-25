@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.assemblage.BlockStateSpec
 import com.caimeo.markovpaper.xml.GridSize
@@ -7,14 +7,14 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.*
 
-class PaperModelCatalogTest {
+class ModelCatalogTest {
     @TempDir lateinit var directory: Path
-    private fun installed() = PaperModelCatalog(directory).apply { installBundled() }
+    private fun installed() = ModelCatalog(directory).apply { installBundled() }
 
     @Test
     fun `model XML and profiles cannot resolve outside the model directory`() {
         val modelDirectory = Files.createDirectory(directory.resolve("models"))
-        val catalog = PaperModelCatalog(modelDirectory)
+        val catalog = ModelCatalog(modelDirectory)
         val external = directory.resolve("outside.xml")
         Files.writeString(external, """<one values="BW" in="B" out="W"/>""")
         Files.createSymbolicLink(modelDirectory.resolve("escape.xml"), external)
@@ -29,7 +29,7 @@ class PaperModelCatalogTest {
     fun `bundled models prepare from metadata with unchanged bounds and materials`() {
         val catalog = installed()
         val plans = catalog.names().associateWith { catalog.prepare(it, catalog.profile(it).defaultSize) }
-        assertEquals(PaperModelCatalog.bundledNames.toSet(), plans.keys)
+        assertEquals(ModelCatalog.bundledNames.toSet(), plans.keys)
         assertEquals(GridSize(95, 95, 24), plans.getValue("sea-villa").size)
         assertEquals(GridSize(51, 51, 24), plans.getValue("modern-house").size)
         assertEquals(GridSize(48, 48, 72), plans.getValue("carma-tower").size)
@@ -99,7 +99,7 @@ class PaperModelCatalogTest {
 
     @Test
     fun `custom wfc bounds and runtime share the same prepared definition`() {
-        val catalog = PaperModelCatalog(directory)
+        val catalog = ModelCatalog(directory)
         Files.writeString(directory.resolve("custom.xml"), """
             <sequence values="B"><wfc values="BVL" tileset="Partition" overlap="-3">
               <map values="BW" scale="1 1 2"><rule in="V" out="W W"/></map>

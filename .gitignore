@@ -1,3 +1,6 @@
 /.gradle/
 /build/
 **/build/
+/fabric/run/
+/fabric/logs/
+**/.gradle/

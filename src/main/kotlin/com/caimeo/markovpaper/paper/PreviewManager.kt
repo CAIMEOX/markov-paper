@@ -1,5 +1,20 @@
 package com.caimeo.markovpaper.paper
 
+import com.caimeo.markovpaper.minecraft.BlockPoint
+import com.caimeo.markovpaper.minecraft.GridPlacement
+import com.caimeo.markovpaper.minecraft.WorldBounds
+import com.caimeo.markovpaper.minecraft.PreviewLifecycle
+import com.caimeo.markovpaper.minecraft.PreviewPacing
+import com.caimeo.markovpaper.minecraft.PreviewSource
+import com.caimeo.markovpaper.minecraft.VoxelPreviewSource
+import com.caimeo.markovpaper.minecraft.StaticPreviewSource
+import com.caimeo.markovpaper.minecraft.TracePreviewSource
+import com.caimeo.markovpaper.minecraft.ProgramPreviewSource
+import com.caimeo.markovpaper.minecraft.ModelCatalog
+import com.caimeo.markovpaper.minecraft.GenerationMode
+import com.caimeo.markovpaper.minecraft.validateGenerationShape
+import com.caimeo.markovpaper.minecraft.details
+
 import com.caimeo.markovpaper.assemblage.AssemblageTrace
 import com.caimeo.markovpaper.assemblage.AssemblageAddition
 import com.caimeo.markovpaper.assemblage.ControlKind
@@ -38,7 +53,7 @@ class PreviewManager(
     private val boundsDisplays = HashMap<UUID, BoundsDisplay>()
     private val hybridTraces = ArrayList<HeadlessHybridTrace>()
     private val workbenchDisplays = HashMap<UUID, WorkbenchDisplay>()
-    private val models = PaperModelCatalog(modelDirectory).apply { installBundled() }
+    private val models = ModelCatalog(modelDirectory).apply { installBundled() }
 
     fun availableModels(): List<String> = models.names()
 
@@ -632,35 +647,3 @@ class PreviewManager(
         private val WORKBENCH_JIGSAW_DUST = Particle.DustOptions(Color.FUCHSIA, 1.2f)
     }
 }
-
-
-internal fun validateGenerationShape(
-    placement: GridPlacement,
-    sizeX: Int,
-    sizeY: Int,
-    sizeZ: Int,
-    worldMinHeight: Int,
-    worldMaxHeight: Int,
-) {
-    require(sizeX > 0 && sizeY > 0 && sizeZ > 0)
-    val voxelCount = try {
-        Math.multiplyExact(
-            Math.multiplyExact(sizeX.toLong(), sizeY.toLong()),
-            sizeZ.toLong(),
-        )
-    } catch (exception: ArithmeticException) {
-        throw IllegalArgumentException("Generation dimensions overflow the voxel count", exception)
-    }
-    require(voxelCount <= MAX_GENERATION_VOXELS) {
-        "Generation volume $voxelCount exceeds safety limit $MAX_GENERATION_VOXELS"
-    }
-    val verticalSize = if (placement.modelZIsUp) sizeZ else sizeY
-    require(placement.originY >= worldMinHeight) {
-        "Generation extends below world minimum Y $worldMinHeight"
-    }
-    require(placement.originY.toLong() + verticalSize <= worldMaxHeight.toLong()) {
-        "Generation extends above world maximum Y ${worldMaxHeight - 1}"
-    }
-}
-
-internal const val MAX_GENERATION_VOXELS = 2_000_000L

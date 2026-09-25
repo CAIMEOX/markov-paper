@@ -2,7 +2,7 @@
 
 [Overview](../README.md) · [Model format](model-format.md) · [Core embedding](core.md) · [Paper](paper.md)
 
-The CLI runs the same MJ/WFC/NUT compiler as Paper without Minecraft or Bukkit.
+The CLI runs the same MJ/WFC/NUT compiler as the Paper and Fabric backends.
 It validates models, generates voxel grids, and exports visible animation deltas.
 
 ## Install and run
@@ -136,10 +136,10 @@ when it references external resources. Resource paths cannot escape that root
 through `..` or symlinks. See the [model format](model-format.md) for complete
 WFC/NUT manifests, palette legends and masks.
 
-CLI generation uses the XML's dimensions and symbolic palette. Paper applies
+CLI generation uses the XML's dimensions and symbolic palette. Game backends apply
 additional [model profiles](model-profiles.md). For example, `backrooms2d` is a 2D grid in CLI, while
 `nut-rooms2d` creates height through XML and therefore has the same dimensions
-in both adapters. Use explicit CLI dimensions to reproduce a Paper model's
+in all backends. Use explicit CLI dimensions to reproduce a Minecraft model's
 unprojected input grid.
 
 ## Coordinates and exports

@@ -2,13 +2,16 @@ plugins {
     kotlin("jvm") version "2.3.20"
 }
 
+evaluationDependsOn(":core")
+evaluationDependsOn(":minecraft")
+
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(project(":minecraft"))
     compileOnly("io.papermc.paper:paper-api:26.2.build.119-stable")
     implementation(kotlin("stdlib"))
 
@@ -33,7 +36,7 @@ tasks.processResources {
 }
 
 tasks.jar {
-    dependsOn(":core:jar")
+    dependsOn(":core:jar", ":minecraft:jar")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(configurations.runtimeClasspath.get().map { dependency ->
         if (dependency.isDirectory) dependency else zipTree(dependency)

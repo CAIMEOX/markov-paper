@@ -51,7 +51,7 @@ abstract class VerifyBundledResources : DefaultTask() {
     }
 }
 
-val verifyBundledResources by tasks.registering(VerifyBundledResources::class) {
+val verifyBundledResources = tasks.register<VerifyBundledResources>("verifyBundledResources") {
     checksums.set(layout.projectDirectory.file("vendor/markovjunior.sha256"))
     resourcesDirectory.set(layout.projectDirectory.dir("src/main/resources"))
 }

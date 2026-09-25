@@ -25,8 +25,8 @@ import com.caimeo.markovpaper.paper.PreviewManager
 import com.caimeo.markovpaper.paper.MarkovCommandAccess
 import com.caimeo.markovpaper.paper.AssetWorkbenchManager
 import com.caimeo.markovpaper.paper.AssetDebugWorldManager
-import com.caimeo.markovpaper.paper.BlockPoint
-import com.caimeo.markovpaper.paper.GenerationMode
+import com.caimeo.markovpaper.minecraft.BlockPoint
+import com.caimeo.markovpaper.minecraft.GenerationMode
 import com.caimeo.markovpaper.paper.PaperStructureAssetSource
 import com.caimeo.markovpaper.paper.PaperAuthoredCellRotation
 import com.caimeo.markovpaper.paper.describeAssemblageResult

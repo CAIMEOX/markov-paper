@@ -1,13 +1,14 @@
-# Paper model profiles
+# Minecraft model profiles
 
-[Paper guide](paper.md) · [MJ XML format](model-format.md) · [Core](core.md)
+[Paper guide](paper.md) · [Fabric guide](fabric.md) · [MJ XML format](model-format.md) · [Core](core.md)
 
-Paper reads a model from `models/<name>.xml` and its optional presentation
-profile from `models/<name>.properties` in the plugin data folder. Profiles use
-UTF-8 Java properties syntax and configure the Paper adapter. The standalone
+Both game backends read `models/<name>.xml` and its optional presentation
+profile `models/<name>.properties`. Paper uses `plugins/markov-paper/` as its
+data folder; Fabric uses `config/markov/`. Profiles use UTF-8 Java properties
+syntax. The standalone
 CLI uses explicit `--size` dimensions and exports MJ axes and symbolic colors.
 
-The plugin installs missing bundled XML/profile files at startup without
+Each backend installs missing bundled XML/profile files at startup without
 overwriting existing ones. Copy **both files** when renaming a bundled model.
 Each command reads its profile again; editing it affects the next generation,
 not an already-running preview. Missing profiles use the defaults below.
@@ -32,7 +33,7 @@ hybrid=false
 | `rewrites` | `4` | Maximum advances per compute batch |
 | `input` | `size size size` | Three MJ input dimensions; each is a positive integer or `size` |
 | `up` | `auto` | `z` maps MJ Z to Minecraft Y; `y` leaves axes unchanged |
-| `hybrid` | `false` | Enable hybrid Scene generation within its volume/work limits |
+| `hybrid` | `false` | Enable Paper hybrid Scene generation within its volume/work limits |
 
 `auto` uses MJ Z-up for a height projection or output depth greater than one;
 otherwise the XY plane stays vertical. Use `up=z` to place a 2D model horizontally.
@@ -57,7 +58,7 @@ tries the exact symbol, then its uppercase override, then the default palette.
 Without an override, output index zero is air; other symbols use the usual MJ
 color palette, with a deterministic color fallback for unknown symbols.
 Explicit `block.B=...` may override index zero (the `fill` demo does this).
-Paper validates Minecraft block states when displaying them.
+The selected backend validates Minecraft block states when displaying them.
 
 ## Height columns
 

@@ -1,6 +1,6 @@
 package com.caimeo.markovpaper.xml
 
-import com.caimeo.markovpaper.paper.PaperModelCatalog
+import com.caimeo.markovpaper.minecraft.ModelCatalog
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
@@ -12,7 +12,7 @@ class BackroomsHeightModelsTest {
     @TempDir lateinit var directory: Path
     @Test
     fun `runtime compiler extrudes backrooms to the requested height`() {
-        val catalog = PaperModelCatalog(directory).apply { installBundled() }
+        val catalog = ModelCatalog(directory).apply { installBundled() }
         val model = catalog.prepare("backrooms2d", 41, 7).execution.create(17)
         var frames = 0
         while (frames < 5_000 && model.node.advance() != null) frames++
@@ -42,7 +42,7 @@ class BackroomsHeightModelsTest {
     @Test
     fun `backrooms symbols project into rooms walls lintels and ceiling lights`() {
         val symbols = "BFWHVLDRQ".toList()
-        val catalog = PaperModelCatalog(directory).apply { installBundled() }
+        val catalog = ModelCatalog(directory).apply { installBundled() }
         Files.writeString(directory.resolve("columns.xml"), """<one values="BFWHVLDRQ" in="B" out="F"/>""")
         Files.writeString(directory.resolve("columns.properties"),
             Files.readString(directory.resolve("backrooms2d.properties"))

@@ -1,4 +1,4 @@
-package com.caimeo.markovpaper.paper
+package com.caimeo.markovpaper.minecraft
 
 import com.caimeo.markovpaper.assemblage.*
 import com.caimeo.markovpaper.scene.VoxelGridSceneProgram

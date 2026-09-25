@@ -1,5 +1,9 @@
 package com.caimeo.markovpaper.paper
 
+import com.caimeo.markovpaper.minecraft.GridPlacement
+import com.caimeo.markovpaper.minecraft.PreviewTarget
+import com.caimeo.markovpaper.minecraft.PreviewCell
+
 import com.caimeo.markovpaper.assemblage.BlockStateSpec
 import com.caimeo.markovpaper.assemblage.Extent3i
 import com.caimeo.markovpaper.assemblage.Vec3i
